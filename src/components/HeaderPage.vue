@@ -12,6 +12,7 @@
             <input
               id="search"
               v-model="searchStr"
+              placeholder="Cerca il tuo film preferito"
               type="text"
               name="search"
             >
@@ -42,6 +43,11 @@ header{
 h1 {
   color: red;
   font-weight: bold;
+}
+input{
+  &::placeholder {
+    font-size: .8rem;
+  }
 }
 button {
   background-color: red;
