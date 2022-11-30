@@ -9,7 +9,7 @@
     </div> -->
     <div
       v-for="movie in arrMovies"
-      :key="movie.original_title"
+      :key="movie.id"
     >
       {{ movie.original_title }}
     </div>
