@@ -9,7 +9,7 @@
       :searched-movies="arrMovies"
       :searched-series="arrSeries"
       :genres-list="arrGenres"
-      :selected-new-value="selectedNewValue"
+      :arr-movies-filtered:="arrMoviesFiltered"
     />
   </div>
 </template>
@@ -37,6 +37,15 @@ export default {
       arrGenres: [],
       selectedNewValue: '',
     };
+  },
+  computed: {
+    arrMoviesFiltered() {
+      if (this.selectedNewValue === 'all') {
+        return this.arrMovies;
+      }
+      // eslint-disable-next-line
+      return this.arrMovies.filter((objMovie) => objMovie.genre_ids.includes(this.selectedNewValue));
+    },
   },
   created() {
     axios.get(this.genreApi, {
