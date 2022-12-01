@@ -70,7 +70,6 @@ export default {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-
   }
 }
 

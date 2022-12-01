@@ -33,8 +33,10 @@
             <label for="genres">
               <select
                 id="genres"
+                v-model="genreFilter"
                 class="h-100"
                 name="genres"
+                @change="genreChange"
               >
                 <option value="all">All</option>
                 <option
@@ -59,7 +61,13 @@ export default {
   data() {
     return {
       searchStr: '',
+      genreFilter: 'all',
     };
+  },
+  methods: {
+    genreChange() {
+      this.$emit('changedGenre', this.genreFilter);
+    },
   },
 };
 </script>

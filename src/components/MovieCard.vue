@@ -6,7 +6,7 @@
           <div class="text-container">
             <div>{{ movie.title }}</div>
             <div>{{ movie.original_title }}</div>
-            <Flag :code="movie.original_language.toUpperCase()" />
+            <lang-flag :iso="movie.original_language" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
                 v-for="item in rating"

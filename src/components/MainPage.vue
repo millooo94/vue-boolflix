@@ -29,13 +29,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div
-      v-for="movie in searchedResults"
-      :key="movie.id"
-    >
-      {{ movie.original_title }}
-    </div> -->
   </main>
 </template>
 
@@ -53,9 +46,24 @@ export default {
   props: {
     searchedMovies: Array,
     searchedSeries: Array,
+    genresList: Array,
+    selectedNewValue: String,
   },
-
+  computed: {
+    arrMoviesFiltered() {
+      // if (this.selectedNewValue === 'all') {
+      //   return this.searchedMovies;
+      // }
+      // eslint-disable-next-line
+      return console.log(this.selectedNewValue)
+      // eslint-disable-next-line
+      // return this.searchedMovies.filter((objMovie) => objMovie.genre_ids.includes(this.selectedNewValue));
+    },
+  },
   methods: {
+    console() {
+      return console.log(this.selectedNewValue);
+    },
   },
 };
 </script>
