@@ -9,7 +9,7 @@
       :searched-movies="arrMovies"
       :searched-series="arrSeries"
       :genres-list="arrGenres"
-      :arr-movies-filtered:="arrMoviesFiltered"
+      :arr-movies-filtered="arrMoviesFiltered"
     />
   </div>
 </template>
