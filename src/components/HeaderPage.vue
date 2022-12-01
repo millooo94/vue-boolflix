@@ -3,23 +3,48 @@
     <div class="container">
       <div class="row justify-content-between align-items-center">
         <div class="col-auto">
-          <h1 class="m-0">
-            BOOLFLIX
-          </h1>
+          <a
+            href=""
+            class="text-decoration-none"
+          >
+            <h1 class="m-0">
+              BOOLFLIX
+            </h1>
+          </a>
         </div>
         <div class="col-auto d-flex">
-          <label for="search">
-            <input
-              id="search"
-              v-model="searchStr"
-              placeholder="Cerca il tuo film preferito"
-              type="text"
-              name="search"
-            >
-          </label>
-          <button @click="$emit('searchedValue', searchStr)">
-            CERCA
-          </button>
+          <form
+            action=""
+            @submit.prevent="$emit('searchedValue', searchStr)"
+          >
+            <label for="search">
+              <input
+                id="search"
+                v-model="searchStr"
+                class="h-100"
+                placeholder="Cerca il tuo film preferito"
+                type="text"
+                name="search"
+              >
+            </label>
+            <button>
+              CERCA
+            </button>
+            <label for="genres">
+              <select
+                id="genres"
+                class="h-100"
+                name="genres"
+              >
+                <option value="all">All</option>
+                <option
+                  v-for="genre in genresList"
+                  :key="genre.name"
+                  :value="genre.name"
+                >{{ genre.name }}</option>
+              </select>
+            </label>
+          </form>
         </div>
       </div>
     </div>
@@ -28,6 +53,9 @@
 <script>
 export default {
   name: 'HeaderPage',
+  props: {
+    genresList: Array,
+  },
   data() {
     return {
       searchStr: '',

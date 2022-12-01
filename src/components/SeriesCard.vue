@@ -4,9 +4,9 @@
       <div class="img-container w-100 position-relative">
         <div class="schedule w-100 bg-black">
           <div class="text-container">
-            <div>{{ movie.title }}</div>
-            <div>{{ movie.original_title }}</div>
-            <Flag :code="movie.original_language.toUpperCase()" />
+            <div>{{ series.name }}</div>
+            <div>{{ series.original_name }}</div>
+            <Flag :code="series.origin_country" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
                 v-for="item in rating"
@@ -29,7 +29,7 @@
         </div>
         <img
           class="w-100"
-          :src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :src="`http://image.tmdb.org/t/p/w500${series.poster_path}`"
           alt=""
         >
       </div>
@@ -39,13 +39,13 @@
 
 <script>
 export default {
-  name: 'MovieCard',
+  name: 'SeriesCard',
   props: {
-    movie: Object,
+    series: Object,
   },
   data() {
     return {
-      rating: Math.ceil((this.movie.vote_average * 5) / 10),
+      rating: Math.ceil((this.series.vote_average * 5) / 10),
     };
   },
 };
