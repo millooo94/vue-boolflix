@@ -77,6 +77,8 @@ export default {
         params: {
           api_key: this.myKey,
         },
+      }).then((axiosResponse) => {
+        this.arrCast = axiosResponse.data.cast;
       });
     },
   },
