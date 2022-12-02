@@ -7,7 +7,12 @@
             <div>{{ title }}</div>
             <div>{{ originalTitle }}</div>
             <div>{{ overview }}</div>
-            <div>{{ arrCast }}</div>
+            <div
+              v-for="actor in arrCast"
+              :key="actor.id"
+            >
+              {{ actor.name }}
+            </div>
             <lang-flag :iso="language" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
@@ -34,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'MovieCard',
@@ -44,8 +50,25 @@ export default {
     overview: String,
     imgUrl: String,
     rating: Number,
-    arrCast: Array,
+    id: Number,
 
+  },
+  data() {
+    return {
+      movieCastStr: `https://api.themoviedb.org/3/movie/${this.id}/credits`,
+      arrCast: [],
+    };
+  },
+  methods: {
+    getCast() {
+      axios.get(this.movieCastStr, {
+        params: {
+          api_key: this.myKey,
+        },
+      }).then((axiosResponse) => {
+        this.arrCast = axiosResponse.data.cast;
+      });
+    },
   },
 };
 </script>

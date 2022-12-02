@@ -9,6 +9,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-3 g-4">
           <MainCard
             v-for="movie in arrMoviesFiltered"
+            :id="movie.id"
             :key="movie.id"
             :title="movie.title"
             :original-title="movie.original_title"
@@ -16,7 +17,6 @@
             :rating="getRating(movie.vote_average, 5, 10)"
             :img-url="`${imgBase}${imgSize}${movie.poster_path}`"
             :overview="movie.overview"
-            :arr-cast="arrCast.name"
           />
         </div>
       </div>
@@ -64,22 +64,11 @@ export default {
     return {
       imgBase: 'http://image.tmdb.org/t/p',
       imgSize: '/w500',
-      movieCastStr: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits`,
-      arrCast: [],
     };
   },
   methods: {
     getRating(currentRating, maxRating, maxCurrentRating) {
       return Math.ceil((currentRating * maxRating) / maxCurrentRating);
-    },
-    getCast() {
-      axios.get(this.movieCastStr, {
-        params: {
-          api_key: this.myKey,
-        },
-      }).then((axiosResponse) => {
-        this.arrCast = axiosResponse.data.cast;
-      });
     },
   },
 };
