@@ -16,7 +16,7 @@
             :rating="getRating(movie.vote_average, 5, 10)"
             :img-url="`${imgBase}${imgSize}${movie.poster_path}`"
             :overview="movie.overview"
-            :arr-cast="movie.arrCast.cast.name"
+            :arr-cast="arrCast.name"
           />
         </div>
       </div>
