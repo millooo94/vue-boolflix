@@ -100,7 +100,7 @@ export default {
       });
     },
     getUniqueGenres() {
-      return this.arrGenres.filter((c, index) => this.arrGenres.indexOf(c) === index);
+      return this.arrGenres.filter((obj, index) => this.arrGenres.indexOf(obj) === index);
     },
 
     getSelectedNewValue(value) {
