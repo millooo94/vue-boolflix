@@ -42,7 +42,7 @@
                 <option
                   v-for="genre in genresList"
                   :key="genre.name"
-                  :value="genre.name"
+                  :value="genre.id"
                 >{{ genre.name }}</option>
               </select>
             </label>

@@ -6,7 +6,8 @@
           <div class="text-container">
             <div>{{ series.name }}</div>
             <div>{{ series.original_name }}</div>
-            <Flag :code="series.origin_country" />
+            <div>{{ series.overview }}</div>
+            <lang-flag :iso="series.original_language" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
                 v-for="item in rating"
@@ -15,8 +16,6 @@
               >
                 {{ item }}
               </font-awesome-icon>
-            </div>
-            <div class="stars d-flex justify-content-between">
               <font-awesome-icon
                 v-for="item in (5 - rating)"
                 :key="item"
@@ -70,6 +69,7 @@ export default {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
+
   }
 }
 

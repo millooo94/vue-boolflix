@@ -28,14 +28,16 @@ export default {
   data() {
     return {
       searchedString: '',
-      movieApi: 'https://api.themoviedb.org/3/search/movie',
-      seriesApi: 'https://api.themoviedb.org/3/search/tv',
-      genreApi: 'https://api.themoviedb.org/3/genre/movie/list',
+      movieStr: 'https://api.themoviedb.org/3/search/movie',
+      seriesStr: 'https://api.themoviedb.org/3/search/tv',
+      movieGenreStr: 'https://api.themoviedb.org/3/genre/movie/list',
+      seriesGenreStr: 'https://api.themoviedb.org/3/genre/tv/list',
       myKey: 'f076b0b57cdb7cc0d567f3b7fa3992c5',
       arrMovies: [],
       arrSeries: [],
       arrGenres: [],
-      selectedNewValue: '',
+      arrCast: [],
+      selectedNewValue: 'all',
     };
   },
   computed: {
@@ -46,47 +48,62 @@ export default {
       // eslint-disable-next-line
       return this.arrMovies.filter((objMovie) => objMovie.genre_ids.includes(this.selectedNewValue));
     },
+    arrSeriesFiltered() {
+      if (this.selectedNewValue === 'all') {
+        return this.arrSeries;
+      }
+      // eslint-disable-next-line
+      return this.arrSeries.filter((objSeries) => objSeries.genre_ids.includes(this.selectedNewValue));
+    },
   },
   created() {
-    axios.get(this.genreApi, {
+    axios.get(this.movieGenreStr, {
       params: {
         api_key: this.myKey,
       },
     }).then((axiosResponse) => {
       this.arrGenres = axiosResponse.data.genres;
-      // console.log(this.arrGenres);
+    });
+
+    axios.get(this.seriesGenreStr, {
+      params: {
+        api_key: this.myKey,
+      },
+    }).then((axiosResponse) => {
+      if (!this.arrGenres.includes(axiosResponse.data.genres)) {
+        this.arrGenres.push(axiosResponse.data.genres);
+      }
     });
   },
 
   methods: {
     getValue(value) {
       this.searchedString = value;
-      this.getMovies();
-      this.getSeries();
-    },
-    getMovies() {
-      axios.get(this.movieApi, {
+
+      axios.get(this.movieStr, {
         params: {
           api_key: this.myKey,
           query: this.searchedString,
+          language: 'it-IT',
         },
       }).then((axiosResponse) => {
         this.arrMovies = axiosResponse.data.results;
       });
-    },
-    getSeries() {
-      axios.get(this.seriesApi, {
+
+      axios.get(this.seriesStr, {
         params: {
           api_key: this.myKey,
           query: this.searchedString,
+          language: 'it-IT',
         },
       }).then((axiosResponse) => {
         this.arrSeries = axiosResponse.data.results;
       });
     },
+
     getSelectedNewValue(value) {
       this.selectedNewValue = value;
-      // console.log(this.selectedNewValue);
+      console.log(this.selectedNewValue);
     },
   },
 };

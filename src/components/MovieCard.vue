@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="col ">
-      <div class="img-container w-100 position-relative">
+      <div class="img-container w-100 h-100 position-relative">
         <div class="schedule w-100 bg-black">
           <div class="text-container">
             <div>{{ movie.title }}</div>
             <div>{{ movie.original_title }}</div>
+            <div>{{ movie.overview }}</div>
             <lang-flag :iso="movie.original_language" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
@@ -15,8 +16,6 @@
               >
                 {{ item }}
               </font-awesome-icon>
-            </div>
-            <div class="stars d-flex justify-content-between">
               <font-awesome-icon
                 v-for="item in (5 - rating)"
                 :key="item"
@@ -70,7 +69,7 @@ export default {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-
+    font-size: .8rem;
   }
 }
 
