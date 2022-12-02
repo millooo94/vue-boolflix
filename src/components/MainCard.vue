@@ -4,31 +4,28 @@
       <div class="img-container w-100 h-100 position-relative">
         <div class="schedule w-100 bg-black">
           <div class="text-container">
-            <div>{{ movie.title }}</div>
-            <div>{{ movie.original_title }}</div>
-            <div>{{ movie.overview }}</div>
-            <lang-flag :iso="movie.original_language" />
+            <div>{{ title }}</div>
+            <div>{{ originalTitle }}</div>
+            <div>{{ overview }}</div>
+            <div>{{ arrCast }}</div>
+            <lang-flag :iso="language" />
             <div class="stars d-flex justify-content-between">
               <font-awesome-icon
-                v-for="item in rating"
-                :key="item"
+                v-for="i in rating"
+                :key="i"
                 icon="fa-solid fa-star"
-              >
-                {{ item }}
-              </font-awesome-icon>
+              />
               <font-awesome-icon
-                v-for="item in (5 - rating)"
-                :key="item"
+                v-for="i in (5 - rating)"
+                :key="i"
                 icon="fa-regular fa-star"
-              >
-                {{ item }}
-              </font-awesome-icon>
+              />
             </div>
           </div>
         </div>
         <img
           class="w-100"
-          :src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :src="imgUrl"
           alt=""
         >
       </div>
@@ -37,15 +34,18 @@
 </template>
 
 <script>
+
 export default {
   name: 'MovieCard',
   props: {
-    movie: Object,
-  },
-  data() {
-    return {
-      rating: Math.ceil((this.movie.vote_average * 5) / 10),
-    };
+    title: String,
+    originalTitle: String,
+    language: String,
+    overview: String,
+    imgUrl: String,
+    rating: Number,
+    arrCast: Array,
+
   },
 };
 </script>
@@ -72,5 +72,4 @@ export default {
     font-size: .8rem;
   }
 }
-
 </style>

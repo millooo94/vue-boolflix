@@ -7,10 +7,16 @@
       <div class="movies">
         <h1>Movies</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-3 g-4">
-          <MovieCard
+          <MainCard
             v-for="movie in arrMoviesFiltered"
             :key="movie.id"
-            :movie="movie"
+            :title="movie.title"
+            :original-title="movie.original_title"
+            :language="movie.original_language"
+            :rating="getRating(movie.vote_average, 5, 10)"
+            :img-url="`${imgBase}${imgSize}${movie.poster_path}`"
+            :overview="movie.overview"
+            :arr-cast="movie.arrCast.cast.name"
           />
         </div>
       </div>
@@ -21,10 +27,15 @@
       >
         <h1>Series</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-3 g-4">
-          <SeriesCard
-            v-for="series in searchedSeries"
+          <MainCard
+            v-for="series in arrSeriesFiltered"
             :key="series.id"
-            :series="series"
+            :title="series.name"
+            :original-title="series.original_name"
+            :language="series.original_language"
+            :rating="getRating(series.vote_average, 5, 10)"
+            :img-url="`${imgBase}${imgSize}${series.poster_path}`"
+            :overview="series.overview"
           />
         </div>
       </div>
@@ -34,20 +45,40 @@
 
 <script>
 
-import MovieCard from '@/components/MovieCard.vue';
-import SeriesCard from '@/components/SeriesCard.vue';
+import MainCard from '@/components/MainCard.vue';
+import axios from 'axios';
 
 export default {
   name: 'MainPage',
   components: {
-    MovieCard,
-    SeriesCard,
+    MainCard,
   },
   props: {
     searchedMovies: Array,
     searchedSeries: Array,
     genresList: Array,
     arrMoviesFiltered: Array,
+    arrSeriesFiltered: Array,
+  },
+  data() {
+    return {
+      imgBase: 'http://image.tmdb.org/t/p',
+      imgSize: '/w500',
+      movieCastStr: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits`,
+      arrCast: [],
+    };
+  },
+  methods: {
+    getRating(currentRating, maxRating, maxCurrentRating) {
+      return Math.ceil((currentRating * maxRating) / maxCurrentRating);
+    },
+    getCast() {
+      axios.get(this.movieCastStr, {
+        params: {
+          api_key: this.myKey,
+        },
+      });
+    },
   },
 };
 </script>

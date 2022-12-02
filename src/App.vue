@@ -10,6 +10,7 @@
       :searched-series="arrSeries"
       :genres-list="arrGenres"
       :arr-movies-filtered="arrMoviesFiltered"
+      :arr-series-filtered="arrSeriesFiltered"
     />
   </div>
 </template>
@@ -37,6 +38,8 @@ export default {
       arrSeries: [],
       arrGenres: [],
       arrCast: [],
+      arrMoviesGenre: [],
+      arrSeriesGenre: [],
       selectedNewValue: 'all',
     };
   },
@@ -62,7 +65,8 @@ export default {
         api_key: this.myKey,
       },
     }).then((axiosResponse) => {
-      this.arrGenres = axiosResponse.data.genres;
+      this.arrMoviesGenre = axiosResponse.data.genres;
+      console.log(this.arrMoviesGenre);
     });
 
     axios.get(this.seriesGenreStr, {
@@ -70,10 +74,10 @@ export default {
         api_key: this.myKey,
       },
     }).then((axiosResponse) => {
-      if (!this.arrGenres.includes(axiosResponse.data.genres)) {
-        this.arrGenres.push(axiosResponse.data.genres);
-      }
+      this.arrSeriesGenre = axiosResponse.data.genres;
     });
+    console.log(this.arrSeriesGenre);
+    this.arrGenres = this.arrMoviesGenre.concat(this.arrSeriesGenre);
   },
 
   methods: {
