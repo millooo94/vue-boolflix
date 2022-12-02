@@ -8,7 +8,7 @@
             <div>{{ originalTitle }}</div>
             <div>{{ overview }}</div>
             <div
-              v-for="actor in arrCast"
+              v-for="actor in splicedArrCast"
               :key="actor.id"
             >
               {{ actor.name }}
@@ -56,20 +56,25 @@ export default {
   data() {
     return {
       movieCastStr: `https://api.themoviedb.org/3/movie/${this.id}/credits`,
+      myKey: 'f076b0b57cdb7cc0d567f3b7fa3992c5',
       arrCast: [],
+      splicedArrCast: this.arrCast.splice(4, this.arrCast.lenght - 1),
     };
   },
-  methods: {
-    getCast() {
-      axios.get(this.movieCastStr, {
-        params: {
-          api_key: this.myKey,
-        },
-      }).then((axiosResponse) => {
-        this.arrCast = axiosResponse.data.cast;
-      });
-    },
+  created() {
+    axios.get(this.movieCastStr, {
+      params: {
+        api_key: this.myKey,
+      },
+    }).then((axiosResponse) => {
+      this.arrCast = axiosResponse.data.cast;
+    });
   },
+  // methods: {
+  //   getSplicedArray() {
+  //     return this.arrCast.splice(4, this.arrCast.lenght - 1);
+  //   },
+  // },
 };
 </script>
 

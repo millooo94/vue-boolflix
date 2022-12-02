@@ -8,7 +8,7 @@
     <MainPage
       :searched-movies="arrMovies"
       :searched-series="arrSeries"
-      :genres-list="arrGenres"
+      :genres-list="getUniqueGenres"
       :arr-movies-filtered="arrMoviesFiltered"
       :arr-series-filtered="arrSeriesFiltered"
     />
@@ -37,9 +37,6 @@ export default {
       arrMovies: [],
       arrSeries: [],
       arrGenres: [],
-      arrCast: [],
-      arrMoviesGenre: [],
-      arrSeriesGenre: [],
       selectedNewValue: 'all',
     };
   },
@@ -65,8 +62,7 @@ export default {
         api_key: this.myKey,
       },
     }).then((axiosResponse) => {
-      this.arrMoviesGenre = axiosResponse.data.genres;
-      console.log(this.arrMoviesGenre);
+      this.arrGenres.push(...axiosResponse.data.genres);
     });
 
     axios.get(this.seriesGenreStr, {
@@ -74,10 +70,9 @@ export default {
         api_key: this.myKey,
       },
     }).then((axiosResponse) => {
-      this.arrSeriesGenre = axiosResponse.data.genres;
+      this.arrGenres.push(...axiosResponse.data.genres);
     });
-    console.log(this.arrSeriesGenre);
-    this.arrGenres = this.arrMoviesGenre.concat(this.arrSeriesGenre);
+    console.log(this.arrGenres);
   },
 
   methods: {
@@ -103,6 +98,9 @@ export default {
       }).then((axiosResponse) => {
         this.arrSeries = axiosResponse.data.results;
       });
+    },
+    getUniqueGenres() {
+      return this.arrGenres.filter((c, index) => this.arrGenres.indexOf(c) === index);
     },
 
     getSelectedNewValue(value) {

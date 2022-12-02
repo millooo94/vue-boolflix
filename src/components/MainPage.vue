@@ -22,7 +22,7 @@
       </div>
 
       <div
-        v-if="searchedSeries.length"
+        v-if="arrSeriesFiltered.length"
         class="series"
       >
         <h1>Series</h1>
@@ -46,7 +46,6 @@
 <script>
 
 import MainCard from '@/components/MainCard.vue';
-import axios from 'axios';
 
 export default {
   name: 'MainPage',
